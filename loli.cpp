@@ -1,17 +1,3 @@
-//     cout << R"(---------------------------------------
-//     ⠀⠀⠀⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⢀⡀⠀⠀⠀
-// ⣤⣶⣶⡿⠿⠿⠿⠿⣶⣶⣶⠄⠀⠀⠐⢶⣶⣶⣿⡿⠿⠿⠿⠿⢿⣷⠦⠀
-// ⠙⠏⠁⠀⣤⣶⣶⣶⣶⣒⢳⣆⠀⠀⠀⠀⢠⡞⣒⣲⣶⣖⣶⣦⡀⠀⠉⠛⠁
-// ⠀⠀⠴⢯⣁⣿⣿⣿⣏⣿⡀⠟⠀⠀⠀⠀⠸⠀⣼⣋⣿⣿⣿⣦⣭⠷⠀⠀⠀
-// ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-// ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀
-// ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠟⠀⠀
-// ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡄⠀⢰⠏⠀⠀⠀
-// ⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣠⡴⠟⠁⢀⡟⠀⠀⠀⠀
-// ⠀⠀⠀⠀⠀⠀⠸⡗⠶⠶⠶⠶⠶⠖⠚⠛⠛⠋⠉⠀⠀⠀⠀⢸⠁⠀⠀⠀⠀
-// ⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠀⠀
-// --------------------------------------⠀⠀)" << endl;
-
 #include <iostream>
 #include <string>
 #include <cmath>
@@ -19,7 +5,7 @@ using std::cout;
 using std::cin;
 using std::string;
 using std::endl;
-
+//                               ТОЧКА
 //=================================================================
 
 class point{
@@ -37,21 +23,21 @@ class point{
     y = y1;
     z = z1;
     
-    cout << "•⩊•" << endl;
+    cout << "•  created/getted" << endl;
   }
   
-  void print() const {cout << x << ' ' << y << ' ' << z << " - point coordinates" << endl;}
+  void print() const {cout << "              " << x << ' ' << y << ' ' << z << "  ⚝     point coordinates" << endl;}
   
   float get_x() const {return x;}
   float get_y() const {return y;}
   float get_z() const {return z;}
   
-  void set_x (float s_x){x = s_x;}
-  void set_y (float s_y){y = s_y;}
-  void set_z (float s_z){z = s_z;}
+  void set_x (float s_x){x = s_x; cout << "•(x) changed  " << endl;}
+  void set_y (float s_y){y = s_y; cout << "•(y) changed  " << endl;}
+  void set_z (float s_z){z = s_z; cout << "•(z) changed  " << endl;}
 };
-
-//=======================================================
+//                               ОТРЕЗОК
+//=========================================================================
 //a- начало b - конец
 class line : protected point{
    
@@ -67,68 +53,83 @@ class line : protected point{
     
     line_a = line_a1;
     line_b = line_b1;
-    cout << "----" << endl;
+    cout << "-----  created" << endl;
   }
   // отрезок точка-длинна-азимут-угол наклона
-  line(point line_a2, float l, float azi, float nakl): line_a(line_a2) {
+  line (point line_a2, float l, float azi, float nakl): line_a(line_a2) {
     line_a = line_a2;
     float x1 = line_a.get_x() + l * cos(azi) * cos(nakl);
     float y1 = line_a.get_y() + l * sin(azi) * cos(nakl);
     float z1 = line_a.get_z() + l * sin(nakl);
     line_b = point(x1, y1, z1);
-    cout << "----" << endl;
+    cout << "----  created" << endl;
   }
 //  line_a — начальная точка вектора.
 //  l — длина вектора.
 //  azi — азимутальный угол (угол поворота вокруг оси Z).
 //  nakl — угол наклона от плоскости XY.
   
-  void print_length(){cout << sqrt(pow(line_b.get_x() - line_a.get_x(), 2) + pow(line_b.get_y() - line_a.get_y(), 2) + pow(line_b.get_z() - line_a.get_z(), 2)) << endl;}
+  void print_length(){cout << "              " <<  sqrt(pow(line_b.get_x() - line_a.get_x(), 2) + pow(line_b.get_y() - line_a.get_y(), 2) + pow(line_b.get_z() - line_a.get_z(), 2)) << " length" << endl;}
   
-  void print() const {cout << "line ot ⚝ " << line_a.get_x() << " " << line_a.get_y() << " " << line_a.get_z() << 
+  void print() const {cout << "              line ot ⚝ " << line_a.get_x() << " " << line_a.get_y() << " " << line_a.get_z() << 
   " ⚝ do ⚝ "   << line_b.get_x() << " " << line_b.get_y() << " " << line_b.get_z() << " ⚝   " <<  endl;}
   
   point get_line_a() const {return line_a;}
   point get_line_b() const {return line_b;}
   
-  void set_line_a(point new_a) { line_a = new_a; }
-  void set_line_b(point new_b) { line_b = new_b; }
+  void set_line_a(point new_a) { line_a = new_a; cout << "----  (x,y,z) changed  " << endl; }
+  void set_line_b(point new_b) { line_b = new_b; cout << "----  (x1,y1,z1) changed  " << endl; }
   
   
 };
 
-//========================================================
+//                                      КВАДРАТ
+//====================================================================================== (пока не работает)
 
-class square : public line {
-protected:
-    point c_square, d_square;
+// class square : public line {
+// protected:
 
-public:
-    // Конструктор квадрата по двум точкам
-    square(point a, point b) : line(a, b) {
-        // Вычисляем оставшиеся две точки
-        float dx = b.get_x() - a.get_x();
-        float dy = b.get_y() - a.get_y();
+//   line a_square;
+//   line b_square;
 
-        c_square = point(a.get_x() - dy, a.get_y() + dx, a.get_z());
-        d_square = point(b.get_x() - dy, b.get_y() + dx, b.get_z());
-
-        cout << "==== (Создан квадрат) ====" << endl;
-    }
-
-    void print()
-};
+// public:
+//   square(line a1_square, line b1_square) : line(a1_square.get_line_a(), a1_square.get_line_b()), a_square(a1_square), b_square(b1_square) {
+    
+//     a_square = a1_square;
+//     b_square = b1_square;
+    
+//     cout << "----" << endl;
+//   }
+// };
 //========================================================
 
 int main(){
   
-  line lox (point(1,1,0), point(0,0,0));
+  cout << R"(---------------------------------------
+    ⠀⠀⠀⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⢀⡀⠀⠀⠀
+⣤⣶⣶⡿⠿⠿⠿⠿⣶⣶⣶⠄⠀⠀⠐⢶⣶⣶⣿⡿⠿⠿⠿⠿⢿⣷⠦⠀
+⠙⠏⠁⠀⣤⣶⣶⣶⣶⣒⢳⣆⠀⠀⠀⠀⢠⡞⣒⣲⣶⣖⣶⣦⡀⠀⠉⠛⠁
+⠀⠀⠴⢯⣁⣿⣿⣿⣏⣿⡀⠟⠀⠀⠀⠀⠸⠀⣼⣋⣿⣿⣿⣦⣭⠷⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠟⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡄⠀⢰⠏⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣠⡴⠟⠁⢀⡟⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠸⡗⠶⠶⠶⠶⠶⠖⠚⠛⠛⠋⠉⠀⠀⠀⠀⢸⠁⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠀⠀
+--------------------------------------⠀⠀)" << endl;
+
+  
+// пока не работает 
+  // square pof(line(1, 1, 1, 3, 3, 3), line(2, 2, 2, 5, 5, 5));
+    
+  line lox (point(1,-1,0), point(0,0,0));
   lox.print();
   lox.print_length();
   
-  line pox (point(1,1,0), 7);
+  line pox (point(2,1,4), 7, 45, 23);
   pox.print();
-
+  pox.print_length();
   
   lox.set_line_a(point(2, 2, 6));
   lox.set_line_b(point(-1, -1, -1));
