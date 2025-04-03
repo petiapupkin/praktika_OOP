@@ -10,20 +10,19 @@ using std::endl;
 
 class point{
   
-  protected:
+  public:
   
   float x;
   float y;
   float z;
-  
-  public:
-  
+
+      
   point (float x1 = 0, float y1 = 0, float z1 = 0){
     x = x1;
     y = y1;
     z = z1;
     
-    cout << "•  created/getted" << endl;
+    cout << "  •   created/getted" << endl;
   }
   
   void print() const {cout << "              " << x << ' ' << y << ' ' << z << "  ⚝     point coordinates" << endl;}
@@ -53,7 +52,7 @@ class line : protected point{
     
     line_a = line_a1;
     line_b = line_b1;
-    cout << "-----  created" << endl;
+    cout << "----- created" << endl;
   }
   // отрезок точка-длинна-азимут-угол наклона
   line (point line_a2, float l, float azi, float nakl): line_a(line_a2) {
@@ -62,7 +61,7 @@ class line : protected point{
     float y1 = line_a.get_y() + l * sin(azi) * cos(nakl);
     float z1 = line_a.get_z() + l * sin(nakl);
     line_b = point(x1, y1, z1);
-    cout << "----  created" << endl;
+    cout << "---- created" << endl;
   }
 //  line_a — начальная точка вектора.
 //  l — длина вектора.
@@ -84,23 +83,30 @@ class line : protected point{
 };
 
 //                                      КВАДРАТ
-//====================================================================================== (пока не работает)
+//====================================================================================== 
 
-// class square : public line {
-// protected:
+class square : public line {
+protected:
 
-//   line a_square;
-//   line b_square;
+  line a_square;
+  line b_square;
 
-// public:
-//   square(line a1_square, line b1_square) : line(a1_square.get_line_a(), a1_square.get_line_b()), a_square(a1_square), b_square(b1_square) {
+public:
+  square(line a1_square, line b1_square) : line(a1_square.get_line_a(), a1_square.get_line_b()), a_square(a1_square), b_square(b1_square) {
     
-//     a_square = a1_square;
-//     b_square = b1_square;
+    a_square = a1_square;
+    b_square = b1_square;
     
-//     cout << "----" << endl;
-//   }
-// };
+    cout << "  ⊞  created"  << endl;
+  }
+  
+  // void print_sq() {cout << a_square.print() << b_square.print()<< endl;}
+    void print() const {cout << "              square: " <<  endl 
+    <<"                        ⚝ "<< a_square.get_line_a().x <<" "<< a_square.get_line_a().y <<" "<< a_square.get_line_a().z << " ⚝   " <<   endl 
+    <<"                        ⚝ "<< a_square.get_line_b().x <<" "<< a_square.get_line_b().y <<" "<< a_square.get_line_b().z << " ⚝   " <<   endl 
+    <<"                        ⚝ "<< b_square.get_line_a().x <<" "<< b_square.get_line_a().y <<" "<< b_square.get_line_a().z << " ⚝   " <<   endl 
+    <<"                        ⚝ "<< b_square.get_line_b().x <<" "<< b_square.get_line_b().y <<" "<< b_square.get_line_b().z<< " ⚝   " <<   endl ;}
+};
 //========================================================
 
 int main(){
@@ -119,9 +125,10 @@ int main(){
 ⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠀⠀
 --------------------------------------⠀⠀)" << endl;
 
-  
-// пока не работает 
-  // square pof(line(1, 1, 1, 3, 3, 3), line(2, 2, 2, 5, 5, 5));
+
+
+  square pof(line(point(1, 1, 1), point( 3, 3, 3)), line(point(2, 2, 2), point(5, 5, 5)));
+  pof.print();
     
   line lox (point(1,-1,0), point(0,0,0));
   lox.print();
