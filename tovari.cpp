@@ -1,142 +1,115 @@
-//     cout << R"(---------------------------------------
-//     ⠀⠀⠀⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⢀⡀⠀⠀⠀
-// ⣤⣶⣶⡿⠿⠿⠿⠿⣶⣶⣶⠄⠀⠀⠐⢶⣶⣶⣿⡿⠿⠿⠿⠿⢿⣷⠦⠀
-// ⠙⠏⠁⠀⣤⣶⣶⣶⣶⣒⢳⣆⠀⠀⠀⠀⢠⡞⣒⣲⣶⣖⣶⣦⡀⠀⠉⠛⠁
-// ⠀⠀⠴⢯⣁⣿⣿⣿⣏⣿⡀⠟⠀⠀⠀⠀⠸⠀⣼⣋⣿⣿⣿⣦⣭⠷⠀⠀⠀
-// ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-// ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀
-// ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠟⠀⠀
-// ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡄⠀⢰⠏⠀⠀⠀
-// ⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣠⡴⠟⠁⢀⡟⠀⠀⠀⠀
-// ⠀⠀⠀⠀⠀⠀⠸⡗⠶⠶⠶⠶⠶⠖⠚⠛⠛⠋⠉⠀⠀⠀⠀⢸⠁⠀⠀⠀⠀
-// ⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠀⠀
-// --------------------------------------⠀⠀)" << endl;
-
 #include <iostream>
 #include <string>
-#include <cmath>
 using std::cout;
 using std::cin;
 using std::string;
 using std::endl;
+enum class post {smak, nesmak}; //реализация перечя имен (бесполезно)
 
-//=================================================================
+string postTostring(post p){ //штука которая преобразует enum в строки
+  switch(p){
+    case post::smak:return "smak";
+    case post::nesmak:return "nesmak";
+    default: return "unknown";
+  }
+}
 
-class point{
+class goods { //адекватный класс
   
-  protected:
+  int ID;
+  string name;
+  float money;
+  string post;
+  string newpost;
   
-  float x;
-  float y;
-  float z;
+  static inline unsigned count{}; //умный счетчик statik - статическая inline -одна unsigned - значение 0 целое число без знака
   
   public:
   
-  point (float x1 = 0, float y1 = 0, float z1 = 0){
-    x = x1;
-    y = y1;
-    z = z1;
+  goods (int new_id = 0, string new_name = "unknown", float new_money = 0, string new_post = "unknown", string newnew_post = "unknown"){ //конструктор, что  с него взять
+    ID = new_id;
+    name = new_name;
+    money = new_money;
+    post = new_post;
+    newpost = newnew_post;
+    ++count;
+    cout << "товар " << name << " СОЗДАН. count: " << count << endl;
     
-    cout << "•⩊•" << endl;
   }
   
-  void print() const {cout << x << ' ' << y << ' ' << z << " - point coordinates" << endl;}
-  
-  float get_x() const {return x;}
-  float get_y() const {return y;}
-  float get_z() const {return z;}
-  
-  void set_x (float s_x){x = s_x;}
-  void set_y (float s_y){y = s_y;}
-  void set_z (float s_z){z = s_z;}
-};
-
-//=======================================================
-//a- начало b - конец
-class line : protected point{
-   
-  protected:
-  
-  point line_a;
-  point line_b;
-  float length ;
-  
-  public:
-  // отрезок точка-точка
-  line (point line_a1, point line_b1): line_a(line_a1), line_b(line_b1){ 
-    
-    line_a = line_a1;
-    line_b = line_b1;
-    cout << "----" << endl;
+  ~goods (){ //деструктор акка ликвидирован
+    --count;
+    cout << "товар " << name << " ЛИКВИДИРОВАН. count: " << count << endl;
   }
-  // отрезок точка-длинна-азимут-угол наклона
-  line(point line_a2, float l, float azi, float nakl): line_a(line_a2) {
-    line_a = line_a2;
-    float x1 = line_a.get_x() + l * cos(azi) * cos(nakl);
-    float y1 = line_a.get_y() + l * sin(azi) * cos(nakl);
-    float z1 = line_a.get_z() + l * sin(nakl);
-    line_b = point(x1, y1, z1);
-    cout << "----" << endl;
+  
+  //вывод принт питон юху
+  void print(){
+    cout << ID << " " << name << " " << money << " " << post << " " << newpost << endl;
   }
-//  line_a — начальная точка вектора.
-//  l — длина вектора.
-//  azi — азимутальный угол (угол поворота вокруг оси Z).
-//  nakl — угол наклона от плоскости XY.
   
-  void print_length(){cout << sqrt(pow(line_b.get_x() - line_a.get_x(), 2) + pow(line_b.get_y() - line_a.get_y(), 2) + pow(line_b.get_z() - line_a.get_z(), 2)) << endl;}
+  //обращение к обьектам геттеры
+  int get_id(){
+    return ID;
+  }
   
-  void print() const {cout << "line ot ⚝ " << line_a.get_x() << " " << line_a.get_y() << " " << line_a.get_z() << 
-  " ⚝ do ⚝ "   << line_b.get_x() << " " << line_b.get_y() << " " << line_b.get_z() << " ⚝   " <<  endl;}
+  string get_name(){
+    return name;
+  }
   
-  point get_line_a() const {return line_a;}
-  point get_line_b() const {return line_b;}
+  float get_money(){
+    return money;
+  }
   
-  void set_line_a(point new_a) { line_a = new_a; }
-  void set_line_b(point new_b) { line_b = new_b; }
+  string get_post(){
+    return post;
+  }
   
+  //создание параметров сеттеры
+  void set_id(int s_id){
+    ID = s_id;
+  }
+  
+  void set_name(string s_name){
+    name = s_name;
+  }
+  
+  void set_money(float s_money){
+    money = s_money;
+  }
+  
+  void set_post(string s_post){
+    newpost = s_post;
+  }
   
 };
 
-//========================================================
-
-class square : public line {
-protected:
-    point c_square, d_square;
-
-public:
-    // Конструктор квадрата по двум точкам
-    square(point a, point b) : line(a, b) {
-        // Вычисляем оставшиеся две точки
-        float dx = b.get_x() - a.get_x();
-        float dy = b.get_y() - a.get_y();
-
-        c_square = point(a.get_x() - dy, a.get_y() + dx, a.get_z());
-        d_square = point(b.get_x() - dy, b.get_y() + dx, b.get_z());
-
-        cout << "==== (Создан квадрат) ====" << endl;
-    }
-
-    void print()
+//список товаров через узлы
+class list{
+  goods value;
+  list* next;
+  list* prev;
 };
-//========================================================
 
-int main(){
-  
-  line lox (point(1,1,0), point(0,0,0));
-  lox.print();
-  lox.print_length();
-  
-  line pox (point(1,1,0), 7);
-  pox.print();
 
+int main() 
+{
+  goods milk;
   
-  lox.set_line_a(point(2, 2, 6));
-  lox.set_line_b(point(-1, -1, -1));
-  lox.print();
-  lox.print_length();
+  milk.set_id(1);
+  milk.set_name("milk");
+  milk.set_money(100);
+  milk.set_post("smak"); //обращение через сетторы
   
-  point a(1,1,1);
-  a.print();
+  goods bread(2, "bread", 66, "smak");
+  goods vshutin(3, "Владимир Владимирович Шутин", 0, "Мария Ивановна Шутина" );//обращение через конструктор...
+  
+  cout << milk.get_id()<< endl; //вывод через сеттор
+  
+  milk.print(); //вывод через функцию
+  bread.print();
+  vshutin.print();
   
   return 0;
+  
 }
+
