@@ -106,8 +106,38 @@ public:
     <<"                        ⚝ "<< a_square.get_line_b().x <<" "<< a_square.get_line_b().y <<" "<< a_square.get_line_b().z << " ⚝   " <<   endl 
     <<"                        ⚝ "<< b_square.get_line_a().x <<" "<< b_square.get_line_a().y <<" "<< b_square.get_line_a().z << " ⚝   " <<   endl 
     <<"                        ⚝ "<< b_square.get_line_b().x <<" "<< b_square.get_line_b().y <<" "<< b_square.get_line_b().z<< " ⚝   " <<   endl ;}
+    
+    line get_a_square() const {return a_square;}
+    line get_b_square() const {return b_square;}
+    
+    void set_a_square(line new_a1) {a_square = new_a1; cout << " ----  (x,y,z,v,e,d) changed  " << endl; }
+    void set_b_square(line new_b1) {b_square = new_b1; cout << " ----  (x1,y1,z1,v1,e1,d1) changed  " << endl; }
+    
 };
-//========================================================
+
+//                                   Параллелограм
+//===============================================================================
+
+class par : public square {
+protected:
+  square a_par;
+  square b_par;
+public:
+  par(square a1_par, square b1_par) : square(a1_par.get_a_square(), a1_par.get_b_square()), a_par(a1_par), b_par(b1_par){
+    a_par = a1_par;
+    b_par = b1_par;
+    
+    cout << "  ⊞  ⊞ created"  << endl;
+  }
+  
+  void print() const {cout  << "              parelelogram: " <<  endl 
+  <<"                        "<< a_par.get_a_square().x <<" "<< a_par.get_a_square().y <<" "<< a_par.get_a_square().z << "   " <<   endl 
+    <<"                        "<< a_par.get_b_square().x <<" "<< a_par.get_b_square().y <<" "<< a_par.get_b_square().z << "   " <<   endl 
+    <<"                        "<< b_par.get_a_square().x <<" "<< b_par.get_a_square().y <<" "<< b_par.get_a_square().z << "   " <<   endl 
+    <<"                         "<< b_par.get_b_square().x <<" "<< b_par.get_b_square().y <<" "<< b_par.get_b_square().z<< "   " <<   endl ;}
+    
+  
+};
 
 int main(){
   
@@ -129,7 +159,9 @@ int main(){
 
   square pof(line(point(1, 1, 1), point( 3, 3, 3)), line(point(2, 2, 2), point(5, 5, 5)));
   pof.print();
-    
+  pof.set_a_square(line(point(0, 0, 0), point( 3, 3, 3)));
+  pof.print();
+  
   line lox (point(1,-1,0), point(0,0,0));
   lox.print();
   lox.print_length();
